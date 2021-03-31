@@ -1,0 +1,10 @@
+.beep-form {
+  width: 60%;
+  margin: auto;
+}
+
+@media (max-width: 700px) {
+  .beep-form {
+    width: 90%;
+  }
+}
