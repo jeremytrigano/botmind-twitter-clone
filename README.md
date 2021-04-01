@@ -8,14 +8,14 @@
       Twitter. Il s'agit d'un service sur lequel on peut s'inscrire, se connecter, rédiger et publier
       des articles textuels courts, accéder aux articles écrits par les usagers.
       Périmètre
-- [ ] La partie client doit utiliser Angular, et l'application client doit communiquer avec
+- [x] La partie client doit utiliser Angular, et l'application client doit communiquer avec
       l'application serveur par l'intermédiaire d'une API http.
-- [ ] La partie serveur doit fonctionner sous NodeJS avec TypeScript, et utiliser Express.
-- [ ] La partie base de données peut utiliser le système de votre choix, à condition d'employer
+- [x] La partie serveur doit fonctionner sous NodeJS avec TypeScript, et utiliser Express.
+- [x] La partie base de données peut utiliser le système de votre choix, à condition d'employer
       une librairie ORM adaptée dans l'application serveur.
-- [ ] Vous êtes libres d'employer, tant pour l'application client que l'application serveur, toutes
+- [x] Vous êtes libres d'employer, tant pour l'application client que l'application serveur, toutes
       les librairies compatibles qui vous sembleront pertinentes.
-- [ ] Les versions des différents composants, langages et dépendances des applications du
+- [x] Les versions des différents composants, langages et dépendances des applications du
       projet sont également laissées à votre appréciation, avec une préférence pour les
       versions actives ou LTS.
 
@@ -29,7 +29,7 @@
       articles, etc.
 - [ ] Il faut prévoir, en haut de cette timeline, un espace "rédaction" avec un champ texte et un
       bouton publier.
-- [ ] Les éléments de design sont laissés à votre appréciation, vous êtes libres d'employer les
+- [x] Les éléments de design sont laissés à votre appréciation, vous êtes libres d'employer les
       librairies de votre choix (Bootstrap, Material, etc.)
 
 ### Objectifs bonus possibles (peut faire la différence avec d’autres profils)

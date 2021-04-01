@@ -68,3 +68,33 @@
 - [x] fetch GET /beeps
   - [x] Iterate over array
   - [x] Append each to page
+  - [x] Reverse before appending
+  - [x] Show the form
+  - [x] Hide loading spinner
+- [x] fetch GET /beeps after creating a beep
+- [x] Make beeps an observable
+
+## Back-end
+
+- [x] Install TypeScript dependencies
+- [x] Configure TypeScript
+
+## What's next?
+
+- Load beeps ten by ten and appear on scroll
+- User Accounts
+  - Sign up/Login
+  - Delete and complete delete
+- Add comments/replies to a beep
+- User Profiles
+  - Only show beeps from a given user
+- Search beeps
+- Sort beeps
+- Pictures in a beep
+- Create dotenv
+- Subscribe system
+- Like/Unlike system
+- Dark theme
+- Hashtags
+- User @mentions
+- Realtime feed of beeps

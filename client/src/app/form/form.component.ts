@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { ApiService } from '../api.service';
 
 const API_URL = 'http://localhost:3000/beeps';
 
@@ -16,44 +19,47 @@ export interface Beep {
   styleUrls: ['./form.component.scss'],
 })
 export class FormComponent implements OnInit {
-  isLoading = false;
+  // tslint:disable-next-line: no-inferrable-types
+  public isLoading: boolean = false;
+
+  private sub: Subscription = new Subscription();
   beeps: Beep[] = [];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.listAllBeeps();
+    this.getBeeps();
+
+    this.sub.add(
+      this.apiService.beeps$
+        .pipe(
+          tap((beeps) => {
+            beeps.reverse();
+            this.beeps = beeps;
+          })
+        )
+        // tslint:disable-next-line: deprecation
+        .subscribe()
+    );
   }
 
   // tslint:disable-next-line: typedef
-  onSubmit(form: NgForm) {
+  public onSubmit(form: NgForm): void {
     this.isLoading = true;
     const beep = form.value;
-
-    fetch(API_URL, {
-      method: 'POST',
-      body: JSON.stringify(beep),
-      headers: { 'content-type': 'application/json' },
-    })
-      .then((response) => {
-        response.json();
-      })
-      .then((createdBeep) => {});
+    // tslint:disable-next-line: deprecation
+    this.sub.add(this.apiService.postBeep(beep).subscribe());
+    form.resetForm();
     this.isLoading = false;
   }
 
-  // tslint:disable-next-line: typedef
-  listAllBeeps() {
-    fetch(API_URL)
-      .then((response) => response.json())
-      .then((beepsres) => {
-        beepsres.forEach((beep: Beep) => {
-          this.beeps.push({
-            username: beep.username,
-            content: beep.content,
-            created: beep.created,
-          });
-        });
-      });
+  // tslint:disable-next-line: use-lifecycle-interface
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
+
+  private getBeeps(): void {
+    // tslint:disable-next-line: deprecation
+    this.sub.add(this.apiService.getBeeps().subscribe());
   }
 }

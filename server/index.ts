@@ -1,6 +1,6 @@
-const express = require('express');
-const cors = require('cors');
-const monk = require('monk');
+import cors from 'cors';
+import express from 'express';
+import monk from 'monk';
 
 const app = express();
 
@@ -22,6 +22,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/beeps', (req, res) => {
+  // tslint:disable-next-line: no-shadowed-variable
   beeps.find().then((beeps) => {
     res.json(beeps);
   });
@@ -39,9 +40,9 @@ function isValidBeep(beep) {
 app.post('/beeps', (req, res) => {
   if (isValidBeep(req.body)) {
     const beep = {
-      username: req.body.username.toString(),
       content: req.body.content.toString(),
       created: new Date(),
+      username: req.body.username.toString(),
     };
 
     beeps
