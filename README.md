@@ -4,10 +4,12 @@
 
 ### Objectifs
 
-- [ ] L'exercice consiste en la réalisation d'un service de microblogging du même type que
+- [x] L'exercice consiste en la réalisation d'un service de microblogging du même type que
       Twitter. Il s'agit d'un service sur lequel on peut s'inscrire, se connecter, rédiger et publier
       des articles textuels courts, accéder aux articles écrits par les usagers.
-      Périmètre
+
+### Périmètre
+
 - [x] La partie client doit utiliser Angular, et l'application client doit communiquer avec
       l'application serveur par l'intermédiaire d'une API http.
 - [x] La partie serveur doit fonctionner sous NodeJS avec TypeScript, et utiliser Express.
@@ -21,13 +23,13 @@
 
 ### Description des besoins
 
-- [ ] Il faut pouvoir créer un compte avec email et mot-de-passe sécurisé, se connecter et se
+- [x] Il faut pouvoir créer un compte avec email et mot-de-passe sécurisé, se connecter et se
       déconnecter. Une fois connecté, un bandeau en haut du site doit contenir un menu
       comprenant l'option "se déconnecter".
-- [ ] Il faut, une fois connecté, avoir une timeline des dix derniers articles rédigés (tous
+- [x] Il faut, une fois connecté, avoir une timeline des dix derniers articles rédigés (tous
       utilisateurs confondus), si l'on fait défiler la page au-delà, on charge dix nouveaux
       articles, etc.
-- [ ] Il faut prévoir, en haut de cette timeline, un espace "rédaction" avec un champ texte et un
+- [x] Il faut prévoir, en haut de cette timeline, un espace "rédaction" avec un champ texte et un
       bouton publier.
 - [x] Les éléments de design sont laissés à votre appréciation, vous êtes libres d'employer les
       librairies de votre choix (Bootstrap, Material, etc.)

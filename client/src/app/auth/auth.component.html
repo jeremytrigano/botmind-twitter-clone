@@ -1,0 +1,132 @@
+<nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item is-size-3" href="/">🤖 Bipper</a>
+
+    <a
+      role="button"
+      class="navbar-burger"
+      aria-label="menu"
+      aria-expanded="false"
+      data-target="navbarBasicExample"
+    >
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div *ngIf="!isAuth && !isSigningUp && !isLoggingIn">
+          <button class="button mr-2" (click)="signingUp()">
+            <strong>Sign up</strong>
+          </button>
+          <button class="button is-light" (click)="loggingIn()">Log in</button>
+        </div>
+        <form
+          *ngIf="!isAuth && isSigningUp"
+          (ngSubmit)="onSignUp(f)"
+          #f="ngForm"
+        >
+          <div class="field is-grouped is-grouped-centered">
+            <label for="" class="label mr-2">Username</label>
+            <div class="control">
+              <input
+                type="text"
+                class="input"
+                name="username"
+                required
+                ngModel
+              />
+            </div>
+
+            <label for="" class="label mr-2">Password</label>
+            <div class="control">
+              <input
+                type="password"
+                class="input"
+                name="password"
+                required
+                ngModel
+              />
+            </div>
+
+            <button class="button is-success">Sign Up</button>
+          </div>
+        </form>
+        <form
+          *ngIf="!isAuth && isLoggingIn"
+          (ngSubmit)="onLoggingIn(f)"
+          #f="ngForm"
+        >
+          <div class="field is-grouped is-grouped-centered">
+            <label for="" class="label mr-2">Username</label>
+            <div class="control">
+              <input
+                type="text"
+                class="input"
+                name="username"
+                required
+                ngModel
+              />
+            </div>
+
+            <label for="" class="label mr-2">Password</label>
+            <div class="control">
+              <input
+                type="password"
+                class="input"
+                name="password"
+                required
+                ngModel
+              />
+            </div>
+
+            <button class="button is-success">Log In</button>
+          </div>
+        </form>
+        <div
+          class="dropdown is-right"
+          (click)="dropdownMenu()"
+          [ngClass]="isDropdownMenuActive ? 'is-active' : ''"
+        >
+          <div class="dropdown-trigger" *ngIf="isAuth">
+            <span class="is-size-3">Welcome </span>
+            <a
+              class="is-size-3"
+              aria-haspopup="true"
+              aria-controls="dropdown-menu"
+              >{{ currentUser.username }}</a
+            >
+          </div>
+          <div class="dropdown-menu" id="dropdown-menu" role="menu">
+            <div class="dropdown-content">
+              <a href="#" class="dropdown-item"><s>Delete account</s></a>
+              <a class="dropdown-item"><s>Delete account & data</s></a>
+              <hr class="dropdown-divider" />
+              <a href="#" class="dropdown-item" (click)="onLogOut()">
+                Disconnect
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- <ejs-tooltip id="tooltip" content="Tooltip content" *ngIf="errMessage"> -->
+        <!-- <ejs-tooltip id="tooltip" content="Tooltip content">
+          {{ errMessage }}
+        </ejs-tooltip> -->
+        <div class="modal" [ngClass]="errMessage ? 'is-active' : ''">
+          <div class="modal-background"></div>
+          <div class="modal-content">
+            <div class="box">{{ errMessage }}</div>
+          </div>
+          <button
+            class="modal-close is-large"
+            aria-label="close"
+            (click)="onCloseModal()"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,6 +1,7 @@
 import cors from 'cors';
 import express from 'express';
 import monk from 'monk';
+import auth from './auth';
 
 const app = express();
 
@@ -20,6 +21,8 @@ app.get('/', (req, res) => {
     message: '-beep-01011100 🤖',
   });
 });
+
+app.use('/auth', auth);
 
 app.get('/beeps', (req, res) => {
   // tslint:disable-next-line: no-shadowed-variable

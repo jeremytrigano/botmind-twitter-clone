@@ -79,15 +79,26 @@
 - [x] Install TypeScript dependencies
 - [x] Configure TypeScript
 
+## Front-end
+
+- [x] Load beeps ten by ten and appear on scroll
+  - [x] npm install ngx-infinite-scroll --save
+
+## Back-end
+
+- [x] Add POST /auth/signup route
+- [x] Add POST /auth/login route
+
+## Front-end
+
+- [x] Add navbar with Signup and Login
+
 ## What's next?
 
-- Load beeps ten by ten and appear on scroll
-- User Accounts
-  - Sign up/Login
-  - Delete and complete delete
+- Manage error messages on login/signup
+- Delete and complete delete account option
 - Add comments/replies to a beep
-- User Profiles
-  - Only show beeps from a given user
+- Only show beeps from a given user
 - Search beeps
 - Sort beeps
 - Pictures in a beep
