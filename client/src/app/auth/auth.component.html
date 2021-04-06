@@ -7,7 +7,7 @@
       class="navbar-burger"
       aria-label="menu"
       aria-expanded="false"
-      data-target="navbarBasicExample"
+      data-target="navbarBasic"
     >
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
@@ -15,16 +15,20 @@
     </a>
   </div>
 
-  <div id="navbarBasicExample" class="navbar-menu">
+  <div id="navbarBasic" class="navbar-menu">
     <div class="navbar-end">
       <div class="navbar-item">
-        <div *ngIf="!isAuth && !isSigningUp && !isLoggingIn">
+        <div
+          class="vertical-small-screen"
+          *ngIf="!isAuth && !isSigningUp && !isLoggingIn"
+        >
           <button class="button mr-2" (click)="signingUp()">
             <strong>Sign up</strong>
           </button>
           <button class="button is-light" (click)="loggingIn()">Log in</button>
         </div>
         <form
+          class="vertical-small-screen"
           *ngIf="!isAuth && isSigningUp"
           (ngSubmit)="onSignUp(f)"
           #f="ngForm"
@@ -56,6 +60,7 @@
           </div>
         </form>
         <form
+          class="vertical-small-screen"
           *ngIf="!isAuth && isLoggingIn"
           (ngSubmit)="onLoggingIn(f)"
           #f="ngForm"
@@ -102,23 +107,21 @@
           </div>
           <div class="dropdown-menu" id="dropdown-menu" role="menu">
             <div class="dropdown-content">
-              <a href="#" class="dropdown-item"><s>Delete account</s></a>
+              <a class="dropdown-item" (click)="onDeleteUser()"
+                >Delete account</a
+              >
               <a class="dropdown-item"><s>Delete account & data</s></a>
               <hr class="dropdown-divider" />
-              <a href="#" class="dropdown-item" (click)="onLogOut()">
-                Disconnect
-              </a>
+              <a class="dropdown-item" (click)="onLogOut()"> Disconnect </a>
             </div>
           </div>
         </div>
-        <!-- <ejs-tooltip id="tooltip" content="Tooltip content" *ngIf="errMessage"> -->
-        <!-- <ejs-tooltip id="tooltip" content="Tooltip content">
-          {{ errMessage }}
-        </ejs-tooltip> -->
         <div class="modal" [ngClass]="errMessage ? 'is-active' : ''">
           <div class="modal-background"></div>
           <div class="modal-content">
-            <div class="box">{{ errMessage }}</div>
+            <div class="box">
+              <p [innerHtml]="errMessage | nl2br"></p>
+            </div>
           </div>
           <button
             class="modal-close is-large"

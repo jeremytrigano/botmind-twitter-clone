@@ -24,19 +24,32 @@ router.get('/', (req, res) => {
   });
 });
 
+router.post('/userid', (req, res, next) => {
+  users
+    .findOne({
+      username: req.body.username,
+    })
+    .then((user) => {
+      if (user) {
+        res.json({ id: user._id });
+      } else {
+        const error = new Error('No user found');
+        res.status(409);
+        next(error);
+      }
+    });
+});
+
 router.post('/signup', (req, res, next) => {
-  console.log('req.body', req.body);
   schema
     .validateAsync(req.body)
     .then((val) => {
       req.body = val;
-      console.log('val', val);
       users
         .findOne({
           username: req.body.username,
         })
         .then((user) => {
-          console.log('user', user);
           if (user) {
             const error = new Error(
               'That username is already used. Please choose another one.'
@@ -97,9 +110,35 @@ router.post('/login', (req, res, next) => {
     });
 });
 
+router.delete('/delete/:id', (req, res, next) => {
+  users
+    .remove({ _id: req.params.id })
+    .then((val: any) => {
+      if (val.deletedCount > 0) {
+        res.status(200);
+        res.json({
+          message: 'Account deleted',
+        });
+      } else {
+        const error = new Error('No user deleted');
+        res.status(409);
+        next(error);
+      }
+    })
+    .catch(() => {
+      respondError400(res, next);
+    });
+});
+
 function respondError422(res, next) {
   res.status(422);
   const error = new Error('Unable to login.');
+  next(error);
+}
+
+function respondError400(res, next) {
+  res.status(400);
+  const error = new Error('Unable to delete.');
   next(error);
 }
 

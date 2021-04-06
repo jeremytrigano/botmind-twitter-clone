@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ApiService, User } from '../api.service';
+import { AuthService, User } from '../core';
 
 @Component({
   selector: 'app-auth',
@@ -8,30 +8,56 @@ import { ApiService, User } from '../api.service';
   styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent implements OnInit {
-  currentUser: User;
-  isAuth = false;
-  isSigningUp = false;
-  isLoggingIn = false;
-  errMessage = '';
-  isDropdownMenuActive = false;
+  public currentUser: User;
+  public isAuth = false;
+  public isSigningUp = false;
+  public isLoggingIn = false;
+  public errMessage = '';
+  public isDropdownMenuActive = false;
+  public isBurgerMenuOpen = false;
 
-  constructor(private apiService: ApiService) {
-    this.apiService.currentUser.subscribe((x) => {
+  constructor(private authService: AuthService) {
+    // tslint:disable-next-line: deprecation
+    this.authService.currentUser.subscribe((x) => {
       this.currentUser = x;
       this.currentUser.username ? (this.isAuth = true) : (this.isAuth = false);
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    document.addEventListener('DOMContentLoaded', () => {
+      const $navbarBurgers = Array.prototype.slice.call(
+        document.querySelectorAll('.navbar-burger'),
+        0
+      );
 
-  signingUp(): void {
+      if ($navbarBurgers.length > 0) {
+        $navbarBurgers.forEach((el) => {
+          el.addEventListener('click', () => {
+            const target = el.dataset.target;
+            const $target = document.getElementById(target);
+
+            el.classList.toggle('is-active');
+            $target?.classList.toggle('is-active');
+            this.isBurgerMenuOpen = !this.isBurgerMenuOpen;
+            if (!this.isBurgerMenuOpen) {
+              this.isSigningUp = false;
+              this.isLoggingIn = false;
+            }
+          });
+        });
+      }
+    });
+  }
+
+  public signingUp(): void {
     this.isSigningUp = true;
   }
 
-  onSignUp(form: NgForm): void {
+  public onSignUp(form: NgForm): void {
     const credentials = form.value;
     // tslint:disable-next-line: deprecation
-    this.apiService.postSignUp(credentials).subscribe(
+    this.authService.postSignUp(credentials).subscribe(
       (response: any) => {
         if (response) {
           this.isAuth = true;
@@ -39,22 +65,27 @@ export class AuthComponent implements OnInit {
           this.isSigningUp = false;
         }
       },
-      (error) => {
+      (error: any) => {
         if (error.status === 409 && error.statusText === 'Conflict') {
           this.errMessage = 'Username already taken';
+        } else {
+          this.errMessage =
+            'Username must contain only alphanumeric characters or _\n \
+          Username must be between 2 and 30 characters\n \
+          Password must be at least 10 characters long';
         }
       }
     );
   }
 
-  loggingIn(): void {
+  public loggingIn(): void {
     this.isLoggingIn = true;
   }
 
-  onLoggingIn(form: NgForm): void {
+  public onLoggingIn(form: NgForm): void {
     const credentials = form.value;
     // tslint:disable-next-line: deprecation
-    this.apiService.postLogIn(credentials).subscribe(
+    this.authService.postLogIn(credentials).subscribe(
       (response: any) => {
         if (response) {
           this.isAuth = true;
@@ -68,15 +99,40 @@ export class AuthComponent implements OnInit {
     );
   }
 
-  onLogOut(): void {
-    this.apiService.logout();
+  public onDeleteUser(): void {
+    this.authService.getUserId(this.currentUser.username).subscribe(
+      (response: any) => {
+        if (response) {
+          this.authService.deleteUser(response.id).subscribe(
+            // tslint:disable-next-line: no-shadowed-variable
+            (response: any) => {
+              if (response) {
+                this.onLogOut();
+              }
+            },
+            (error: any) => {
+              this.errMessage = 'Error occurs when deleting account';
+            }
+          );
+        }
+      },
+      (error: any) => {
+        this.errMessage = 'User not found';
+      }
+    );
   }
 
-  dropdownMenu(): void {
+  public onLogOut(): void {
+    this.authService.logout();
+    this.isSigningUp = false;
+    this.isLoggingIn = false;
+  }
+
+  public dropdownMenu(): void {
     this.isDropdownMenuActive = !this.isDropdownMenuActive;
   }
 
-  onCloseModal(): void {
+  public onCloseModal(): void {
     this.errMessage = '';
   }
 }

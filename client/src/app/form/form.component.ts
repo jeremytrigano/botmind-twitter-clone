@@ -1,17 +1,8 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { ApiService, User } from '../api.service';
-
-const API_URL = 'http://localhost:3000/beeps';
-
-export interface Beep {
-  username: string;
-  content: string;
-  created: string;
-}
+import { ApiService, AuthService, Beep, User } from '../core';
 
 @Component({
   selector: 'app-form',
@@ -19,18 +10,21 @@ export interface Beep {
   styleUrls: ['./form.component.scss'],
 })
 export class FormComponent implements OnInit, OnDestroy {
-  currentUser: User;
-  isAuth = false;
-  // tslint:disable-next-line: no-inferrable-types
-  public isLoading: boolean = false;
+  public beeps: Beep[] = [];
+  public currentUser: User;
+  public isAuth = false;
+  public isLoading = false;
+  public partsOfBeeps: Beep[] = [];
 
+  private slicerPosition = 10;
   private sub: Subscription = new Subscription();
-  beeps: Beep[] = [];
-  partsOfBeeps: Beep[] = [];
-  slicerPosition = 10;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService) {
-    this.apiService.currentUser.subscribe((x) => {
+  constructor(
+    private apiService: ApiService,
+    private authService: AuthService
+  ) {
+    // tslint:disable-next-line: deprecation
+    this.authService.currentUser.subscribe((x) => {
       this.currentUser = x;
       this.currentUser.username ? (this.isAuth = true) : (this.isAuth = false);
     });
@@ -68,7 +62,7 @@ export class FormComponent implements OnInit, OnDestroy {
     this.sub.add(this.apiService.getBeeps().subscribe());
   }
 
-  onScroll(): void {
+  public onScroll(): void {
     this.slicerPosition += 10;
     // tslint:disable-next-line: deprecation
     this.getBeeps();

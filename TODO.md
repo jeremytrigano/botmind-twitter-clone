@@ -93,10 +93,27 @@
 
 - [x] Add navbar with Signup and Login
 
+## Refactoring
+
+- [x] Reorganize Angular project files and tree folder
+
+## Front-end
+
+- [x] Rework Burger Menu for small devices
+- [x] Manage error messages on login/signup
+
+## Back-end
+
+- [x] Add POST /auth/userid route
+- [x] Add DELETE /auth//delete/:id route
+
+## Front-end
+
+- [x] Add delete account option
+
 ## What's next?
 
-- Manage error messages on login/signup
-- Delete and complete delete account option
+- Complete delete account option
 - Add comments/replies to a beep
 - Only show beeps from a given user
 - Search beeps

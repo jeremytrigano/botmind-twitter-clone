@@ -1,0 +1,11 @@
+@media only screen and (max-width: 1023px) {
+  .vertical-small-screen * {
+    display: block;
+  }
+
+  .vertical-small-screen div,
+  .vertical-small-screen button,
+  .vertical-small-screen input {
+    margin-bottom: 1em;
+  }
+}
