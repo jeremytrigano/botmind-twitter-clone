@@ -4,8 +4,7 @@
   "description": "Server Bipper - A twitter clone for Botmind",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && node dist/index.js",
-    "dev": "nodemon --config nodemon.json index.ts"
+    "start": "nodemon --config nodemon.json index.ts"
   },
   "author": "\"Jérémy Trigano <trigano.jeremy@gmail.com>",
   "license": "ISC",
@@ -13,6 +12,7 @@
     "@types/node": "^14.0.4",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "joi": "^17.4.0",
     "monk": "^7.3.3",
