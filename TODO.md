@@ -115,11 +115,12 @@
 
 - [x] Configure dotenv
 - [x] Migrate mongoDB localhost to atlas
-- [ ] Configure Heroku
+- [x] Deploy on Heroku
 
 ## Front-end
 
 - [x] Configure environment
+- [x] Deploy on Surge
 
 ## What's next?
 
