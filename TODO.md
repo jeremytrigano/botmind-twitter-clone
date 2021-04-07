@@ -111,6 +111,16 @@
 
 - [x] Add delete account option
 
+## Back-end
+
+- [x] Configure dotenv
+- [x] Migrate mongoDB localhost to atlas
+- [ ] Configure Heroku
+
+## Front-end
+
+- [x] Configure environment
+
 ## What's next?
 
 - Complete delete account option
@@ -119,7 +129,6 @@
 - Search beeps
 - Sort beeps
 - Pictures in a beep
-- Create dotenv
 - Subscribe system
 - Like/Unlike system
 - Dark theme

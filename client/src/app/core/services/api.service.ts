@@ -3,12 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Beep } from '../models';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  private API_URL = 'http://localhost:3000/beeps';
+  // private API_URL = 'http://localhost:3000/beeps';
+  private API_URL = environment.API_URL;
   public beeps$: BehaviorSubject<Beep[]> = new BehaviorSubject<Beep[]>([]);
 
   constructor(private readonly http: HttpClient) {}
@@ -21,7 +23,10 @@ export class ApiService {
   }
 
   public postBeep(data: Beep): any {
-    const headers = { 'content-type': 'application/json' };
+    const headers = {
+      'Access-Control-Allow-Origin': '*',
+      'content-type': 'application/json',
+    };
     const body = JSON.stringify(data);
 
     return this.http.post(this.API_URL, body, { headers }).pipe(

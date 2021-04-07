@@ -3,12 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Credentials, User } from '../models';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private AUTH_URL = 'http://localhost:3000/auth';
+  // private AUTH_URL = 'http://localhost:3000/auth';
+  private AUTH_URL = environment.AUTH_URL;
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
@@ -28,7 +30,10 @@ export class AuthService {
   }
 
   private post(type: string, data: Credentials): any {
-    const headers = { 'content-type': 'application/json' };
+    const headers = {
+      'Access-Control-Allow-Origin': '*',
+      'content-type': 'application/json',
+    };
     const body = JSON.stringify(data);
 
     return this.http.post(`${this.AUTH_URL}/${type}`, body, { headers }).pipe(
@@ -47,7 +52,10 @@ export class AuthService {
   }
 
   public getUserId(username: string): any {
-    const headers = { 'content-type': 'application/json' };
+    const headers = {
+      'Access-Control-Allow-Origin': '*',
+      'content-type': 'application/json',
+    };
     const body = JSON.stringify({ username });
 
     return this.http.post(`${this.AUTH_URL}/userid`, body, { headers }).pipe(
